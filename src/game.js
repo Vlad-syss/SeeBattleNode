@@ -5,7 +5,7 @@ export const createBoard = () => {
 }
 
 export const placeShips = board => {
-	for (const shipLength of SHIPS) {
+	for (const ship of SHIPS) {
 		let placed = false
 
 		while (!placed) {
@@ -13,14 +13,14 @@ export const placeShips = board => {
 			let y = Math.floor(Math.random() * BOARD_SIZE)
 			let direction = Math.random() > 0.5 ? 'Horizontal' : 'Vertical'
 
-			if (checkPlaceForShip(board, x, y, shipLength, direction)) {
-				for (let i = 0; i < shipLength; i++) {
+			if (checkPlaceForShip(board, x, y, ship, direction)) {
+				for (let i = 0; i < ship; i++) {
 					let newX = x + (direction === 'Vertical' ? i : 0)
 					let newY = y + (direction === 'Horizontal' ? i : 0)
 					board[newX][newY] = '■'
 				}
 
-				markSurroundingArea(board, x, y, shipLength, direction)
+				markSurroundingArea(board, x, y, ship, direction)
 				placed = true
 			}
 		}
@@ -30,8 +30,8 @@ export const placeShips = board => {
 	// printBoard(board, false) cheats
 }
 
-export const checkPlaceForShip = (board, x, y, shipLength, direction) => {
-	for (let i = 0; i < shipLength; i++) {
+export const checkPlaceForShip = (board, x, y, ship, direction) => {
+	for (let i = 0; i < ship; i++) {
 		let newX = x + (direction === 'Vertical' ? i : 0)
 		let newY = y + (direction === 'Horizontal' ? i : 0)
 
@@ -67,8 +67,8 @@ export const isAreaFree = (board, x, y) => {
 	return true
 }
 
-export const markSurroundingArea = (board, x, y, shipLength, direction) => {
-	for (let i = -1; i <= shipLength; i++) {
+export const markSurroundingArea = (board, x, y, ship, direction) => {
+	for (let i = -1; i <= ship; i++) {
 		let newX = x + (direction === 'Vertical' ? i : 0)
 		let newY = y + (direction === 'Horizontal' ? i : 0)
 
